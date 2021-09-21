@@ -13,3 +13,9 @@ To run the server with the graph interface of drone, follow next steps:
 (1) Using a terminal move to NodeJsCode folder
 
 (2) run the both html and websocket server with following column 'node Server.js'
+
+Finally, open the website when UAV information is being displayed in the following URL:
+
+http://localhost:5000/
+
+Now control can be started
