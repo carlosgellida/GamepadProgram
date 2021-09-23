@@ -363,8 +363,9 @@
         //create a JSON object
          var pi = 3.14159 ; 
 
-         var string1 = JSON.stringify(evt.data);
-         var jsonObject = JSON.parse(string1);
+         //var string1 = JSON.stringify(evt.data);
+         //var jsonObject = JSON.parse(string1);
+         var jsonObject = JSON.parse(evt.data);
   
          let quat1 = new THREE.Quaternion(jsonObject.QX, jsonObject.QY, jsonObject.QZ, jsonObject.QW);
          let quat_desired = new THREE.Quaternion(jsonObject.dQX, jsonObject.dQY, jsonObject.dQZ, jsonObject.dQW);
@@ -376,25 +377,28 @@
          //quat1.multiplyQuaternions(quat2, quat1);  // Remplaza el cuaternio 4 con el resultado
                                                         // del producto especial de quaternios
          
-         quat1.multiplyQuaternions(quat3, quat1);
+         //quat1.multiplyQuaternions(quat3, quat1);
          quat_desired.multiplyQuaternions(quat3, quat_desired);
           
          //quat1.setFromEuler(Euler_current); 
+
+        // console.log(evt.data);
+        // console.log(quat1) ; 
               
         sceneInfo1.autogiro.quaternion.copy(quat1) ; 
         sceneInfo2.autogiro_desired.quaternion.copy(quat_desired) ; 
 
-        var vecJoyR = new THREE.Vector3(0.7+jsonObject.Ry/8, jsonObject.Rx/8, 0.21+0*jsonObject.Rw);
+        /*var vecJoyR = new THREE.Vector3(0.7+jsonObject.Ry/8, jsonObject.Rx/8, 0.21+0*jsonObject.Rw);
         sceneInfo3.buttonR.position.copy(vecJoyR); 
-        //console.log(jsonObject.Lw); 
+         
         if(jsonObject.Lw > 0.01){
           var vecJoyL = new THREE.Vector3(-0.7+jsonObject.Ly/8, jsonObject.Lx/8, 0.2) ;
         }else{
           var vecJoyL = new THREE.Vector3(-0.7+jsonObject.Ly/8, jsonObject.Lx/8, 0.4*0.5) ;
         }
         
-        sceneInfo3.buttonL.position.copy(vecJoyL);
-        console.log(quat_desired) ; 
+        sceneInfo3.buttonL.position.copy(vecJoyL);*/ //UNCOMENT WHEN BUTTONS WORKS
+        //console.log(quat_desired) ; 
       };
           
   

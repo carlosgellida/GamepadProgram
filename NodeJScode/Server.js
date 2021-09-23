@@ -4,8 +4,6 @@ const WebSocket = require('ws');
 
 var index = fs.readFileSync('Web_visualization.html');
 
-const wss = new WebSocket.Server({ port: 8001 });
-
 
 var server = http.createServer(function (req, res) {   //create web server
     if (req.url == '/') { //check the URL of the current request
@@ -30,22 +28,24 @@ server.listen(5000); //6 - listen for any incoming requests
 
 console.log('Node.js web server at port 5000 is running..')
 
-wss.on('connection', function connection(ws) {
+const wss = new WebSocket.Server({ port: 8001 });
+
+
+ var WebSocketServer = require("ws").Server2;
   
-    ws.on('message', function incoming(message) {
-      //console.log('received: %s', message);
-      ws.send(message);
-    });
+  wss.on('connection', function connection(ws) {
+      ws.on('message', function(message) {
+         wss.broadcast(message);
+      }); 
   
-    ws.on('message', function(message) {
-      wss.broadcast(message);
-   }); 
-   
-  });
+  }) ;
+
   
   wss.broadcast = function broadcast(msg) {
-    //console.log(msg);
-    wss.clients.forEach(function each(client) {
-        client.send(msg);
-     });
-  }; 
+     //console.log(msg.toString());
+     wss.clients.forEach(function each(client) {
+         client.send(msg.toString());
+      });
+  };
+      
+   
